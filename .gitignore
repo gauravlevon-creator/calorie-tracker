@@ -1,0 +1,5 @@
+calorie_tracker.db
+__pycache__/
+*.pyc
+charts/
+.DS_Store
