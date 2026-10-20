@@ -161,6 +161,7 @@ streamlit run streamlit_app.py
 python app.py
 ```
 Both use the same database, so data entered in one shows up in the other.
+On a fresh database, click **Load demo data** to see the app filled with sample users, a week of logs and a team.
 
 ### Web app pages
 - **Sidebar**: pick or register a user, see BMI / maintenance calories, set or change goal
@@ -194,6 +195,7 @@ Or open `calorie_tracker.db` in **DB Browser for SQLite** and paste queries from
 | `recommend.py` | Recommendation engine |
 | `charts.py` | Matplotlib charts |
 | `streamlit_app.py` | Web frontend (Streamlit) |
+| `demo.py` | Sample users, team and a week of logs ("Load demo data" button) |
 | `app.py` | Terminal menu |
 | `sample_queries.sql` | SQL showcase for viva |
 

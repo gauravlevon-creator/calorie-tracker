@@ -14,6 +14,7 @@ import streamlit as st
 import db
 import calculator as calc
 from recommend import recommendations
+from demo import load_demo
 
 st.set_page_config(page_title="Calorie Tracker", page_icon="🥗", layout="wide")
 
@@ -70,6 +71,31 @@ def goal_form(user):
             st.rerun()
 
 
+def load_demo_and_select():
+    ids = load_demo(conn)
+    st.session_state.user_id = ids[0]
+    st.rerun()
+
+
+def welcome_screen():
+    st.title("🥗 Calorie Tracking System")
+    st.markdown(
+        "Track daily food and exercise — on your own or with a group — and get "
+        "recommendations to reach your goal of losing, maintaining or gaining weight.")
+    c1, c2, c3 = st.columns(3)
+    c1.markdown("**🎯 Personal targets**  \nDaily calories and protein from your BMR, activity level and goal.")
+    c2.markdown("**💡 Recommendations**  \nFoods that fit what's left, exercise to burn extra, weekly weight projection.")
+    c3.markdown("**👥 Team leaderboard**  \nTrack together with friends and compare days on track.")
+    st.divider()
+    st.subheader("Get started")
+    b1, b2 = st.columns([1, 2])
+    if b1.button("✨ Load demo data", type="primary", width="stretch", key="welcome_demo"):
+        load_demo_and_select()
+    b2.markdown("See the app filled with 3 sample users, a week of logs and a team — "
+                "or **register yourself** from the sidebar on the left.")
+    st.caption("Built with Python, SQLite (views, triggers, constraints) and Streamlit.")
+
+
 with st.sidebar:
     st.title("🥗 Calorie Tracker")
     users = db.list_users(conn)
@@ -86,10 +112,19 @@ with st.sidebar:
     with st.expander("➕ Register new user", expanded=not users):
         register_form()
 
-    if not users:
-        st.info("Register a user to get started.")
-        st.stop()
+    demo_loaded = conn.execute("SELECT 1 FROM users WHERE email LIKE '%@demo.local'").fetchone()
+    if not demo_loaded and st.button("✨ Load demo data", width="stretch",
+                                     help="Adds 3 sample users, a team and a week of logs"):
+        load_demo_and_select()
 
+    if not users:
+        st.info("Register a user, or load demo data to explore the app.")
+
+if not users:
+    welcome_screen()
+    st.stop()
+
+with st.sidebar:
     user = db.get_user(conn, st.session_state.user_id)
     goal = db.active_goal(conn, user["user_id"])
 
