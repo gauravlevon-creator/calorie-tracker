@@ -1,7 +1,22 @@
 # Calorie Tracking System
-**Python · SQLite · SQL · DBMS**
 
-A database-driven health tracker where a person — or a group of people — logs daily food and exercise, sets a fitness goal (lose / maintain / gain weight), and gets personalised recommendations to reach it.
+A database-driven health tracker where a person, or a group of people, logs daily food and exercise, sets a fitness goal (lose, maintain or gain weight), and gets personalised recommendations to reach it.
+
+**[Open the live app](https://gaurav-calorie-tracker.streamlit.app)** (pick the demo user to look around)
+
+![Calorie Tracker dashboard](docs/screenshot.png)
+
+## Highlights
+
+- **Database-first design:** ER model, normalized schema, and **triggers** that calculate nutrition and calories burned inside the database, plus views and constraints
+- **Goal maths:** BMI, maintenance calories (BMR × activity) and daily calorie and protein targets worked out automatically
+- **Recommendations:** foods that fit the calories and protein left today, exercise time to burn extra calories, weekly trend and projected weight change
+- **Teams:** create or join a group and compete on a 7-day leaderboard
+- **Two interfaces:** a Streamlit web app (dashboard, log, weekly, team, weight) and a terminal menu
+
+**Tech stack:** Python · SQLite · SQL (joins, views, triggers, constraints) · Streamlit · Matplotlib
+
+Software Development Project, SRM Institute of Science and Technology. Built by **Gaurav Kumar**.
 
 ---
 
